@@ -1,0 +1,87 @@
+L-1
+
+manage.py: A command-line utility that lets you interact 
+with your Django project. You can use it to run your development server, create apps, apply migrations, and more.
+__init__.py: An empty file that indicates that this directory should be treated as a Python package.
+settings.py: Contains settings and configuration for your Django project (e.g., database settings, allowed hosts, installed apps).
+urls.py: Contains URL declarations for the project. This is where you define the mapping between URLs and views.
+wsgi.py: An entry-point for WSGI-compatible web servers to serve your project. It’s used for deployment.(web server gateway interface).
+asgi.py: An entry-point for ASGI-compatible web servers to serve your project. It’s used for asynchronous deployment.(asynchronous server gateway interface).
+
+L-2
+
+virtualenv my_env
+$ cd my_env
+$ Scripts\activate 
+pip install django
+django-admin startproject mysite
+
+L-3
+
+//creating Apps
+python manage.py startapp home
+model.py -Database 
+test.py  -testing
+view.py  -logic
+
+// run server
+python manage.py runserver
+python manage.py runserver 0.0.0.0:5000
+
+//template engine
+{extends "base.html"}
+{start block}
+
+{end block}
+
+L-4
+Models
+
+python manage.py makemigrations
+python manage.py migrate
+
+how migrate work?
+django run all migration and create a new states then comparing with Database(hold all migration)
+
+L-5 
+django-shell
+
+command---
+python manage.py shell
+
+
+from myapp.models import MyModel
+
+create-
+my_object = MyModel(field1='value1', field2='value2')
+my_object.save()
+
+getall-
+all_objects = MyModel.objects.all()
+for obj in all_objects:
+    print(obj.field1, obj.field2)
+
+filter-
+filtered_objects = MyModel.objects.filter(field1='value1')
+
+update-
+obj = MyModel.objects.get(id=1)
+obj.field1 = 'new_value'
+obj.save()
+
+delete-
+obj = MyModel.objects.get(id=1)
+obj.delete()
+
+custom function-
+run custom function my importing the function
+from myapp.utils import my_function
+
+L-6
+CRUD Operation
+
+
+
+
+
+

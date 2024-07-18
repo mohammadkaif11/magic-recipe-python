@@ -1,0 +1,56 @@
+{% extends "base.html" %} {% block title %}Generate Recipe - Recipe Book{% endblock %} 
+{% block start %}
+<div class="container my-4">
+    <div class="card">
+      <div class="card-header">
+        <h4>Create a new recipe</h4>
+      </div>
+      {% if form.errors %}
+      <div class="alert alert-danger mt-4">
+        <ul>
+          {% for field in form %} {% for error in field.errors %}
+          <li>{{ field.label }}: {{ error }}</li>
+          {% endfor %} {% endfor %} {% for error in form.non_field_errors %}
+          <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+  
+      <div class="card-body">
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="recipeName">Cuisine Type</label>
+            <input
+              type="text"
+              name="cuisine_type"
+              class="form-control"
+              id="recipeName"
+              placeholder="Enter Recipe Name"
+            />
+          </div>
+          <div class="form-group">
+            <label for="recipeDescription">Main Ingredient</label>
+            <textarea
+              class="form-control"
+              id="main_ingredient"
+              name="main_ingredient"
+              rows="3"
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label for="recipeImage">Dietary Preference</label>
+            <input
+              class="form-control"
+              type="text"
+              id="dietary_preference"
+              name="dietary_preference"
+            />
+          </div>
+          <button type="submit" class="btn btn-primary my-2 mx-1">Generate</button>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

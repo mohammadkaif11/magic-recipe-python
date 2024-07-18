@@ -1,0 +1,35 @@
+{% extends "base.html" %} {% block title %}Update - Recipe Book{% endblock %} {%load form_filters %}
+ {% block start %}
+<div class="container my-4">
+  <div class="card">
+    <div class="card-header">
+      <h4>Update Recipe</h4>
+    </div>
+    <div class="card-body">
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="recipeName">Title</label>
+          {{ form.title|add_class:"form-control" }}
+        </div>
+        <div class="form-group">
+          <label for="recipeDescription">Ingredients</label>
+          {{ form.ingredients|add_class:"form-control" }}
+        </div>
+        <div class="form-group">
+          <label for="recipeDescription">Instructions</label>
+          {{ form.instructions|add_class:"form-control" }}
+        </div>
+        <div class="form-group">
+          <label for="recipeImage">Upload Image</label>
+          {{ form.recipe_image|add_class:"form-control-file" }}
+        </div>
+        <button type="submit" class="btn btn-primary my-2">Update Recipe</button>
+      </form>
+      <a href="{% url 'recipe_view' %}" class="btn btn-secondary mt-2"
+        >Cancel</a
+      >
+    </div>
+  </div>
+</div>
+{% endblock %}

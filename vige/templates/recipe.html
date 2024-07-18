@@ -1,0 +1,112 @@
+{% extends "base.html" %} {% block title %}Recipes - Recipe Book{% endblock %} 
+{% block start %}
+<div class="container my-4">
+  <div class="card">
+    <div class="card-header">
+      <h4>Create New Recipe</h4>
+    </div>
+    {% if form.errors %}
+    <div class="alert alert-danger mt-4">
+      <ul>
+        {% for field in form %} {% for error in field.errors %}
+        <li>{{ field.label }}: {{ error }}</li>
+        {% endfor %} {% endfor %} {% for error in form.non_field_errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+    <div class="card-body">
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group my-1">
+          <label for="recipeName">Title</label>
+          <input
+            type="title"
+            name="title"
+            class="form-control"
+            id="recipeName"
+            placeholder="Enter Recipe Title"
+            value="{{ form.initial.title }}"
+          />
+        </div>
+        <div class="form-group my-1">
+          <label for="recipeDescription">Ingredients</label>
+          <textarea
+            class="form-control"
+            id="ingredients"
+            name="ingredients"
+            rows="3"
+          >{{ form.initial.ingredients }}</textarea>
+        </div>
+        <div class="form-group my-1">
+          <label for="recipeDescription">Instructions</label>
+          <textarea
+            class="form-control"
+            id="instructions"
+            name="instructions"
+            rows="3"
+          >{{ form.initial.instructions }}</textarea>
+        </div>
+        <div class="form-group my-1">
+          <label for="recipe_image">Upload Image</label>
+          <input
+            type="file"
+            name="recipe_image"
+            class="form-control-file"
+            id="recipe_image"
+          />
+        </div>
+        <div class="my-1">
+          <button type="submit" class="btn btn-primary">Submit</button>
+          <a href="/generate-recipe" class="btn btn-primary"
+            >Generate Magic Recipe</a
+          >
+        </div>
+      
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <h2>Your Recipe</h2>
+  <table class="table table-striped mt-4">
+    <thead>
+      <tr>
+        <th scope="col">Image</th>
+        <th scope="col">Title</th>
+        <th scope="col">Ingredients</th>
+        <th scope="col">Instructions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for recipe in recipes %}
+      <tr>
+        <td>
+          <img
+            src="{{recipe.recipe_image}}"
+            alt="{{ recipe.title }}"
+            class="img-fluid"
+            style="max-width: 100px"
+          />
+        </td>
+        <td>{{ recipe.title }}</td>
+        <td>{{ recipe.ingredients }}</td>
+        <td>{{ recipe.instructions }}</td>
+        <td>
+          <a
+            href="{% url 'recipe_update_view' recipe.id %}"
+            class="btn btn-warning btn-sm"
+            >Edit</a
+          >
+          <a href="/delete-recipe/{{recipe.id}}/" class="btn btn-danger btn-sm"
+            >Delete</a
+          >
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
